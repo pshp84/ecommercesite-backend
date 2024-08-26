@@ -1,0 +1,30 @@
+{
+  "name": "ecommercesite-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "dev": "nodemon src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^22.5.0",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "apollo-server-express": "^3.13.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "graphql": "^16.9.0",
+    "mysql2": "^3.11.0",
+    "sequelize": "^6.37.3",
+    "sequelize-cli": "^6.6.2",
+    "sequelize-typescript": "^2.1.6"
+  }
+}

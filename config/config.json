@@ -4,20 +4,23 @@
     "password": "AVNS_yxoxZXbJxL1bjoWdQY0",
     "database": "defaultdb",
     "host": "mysql-1c06620a-academy-e362.h.aivencloud.com",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "port": 21683
   },
   "test": {
     "username": "avnadmin",
     "password": "AVNS_yxoxZXbJxL1bjoWdQY0",
     "database": "defaultdb",
     "host": "mysql-1c06620a-academy-e362.h.aivencloud.com",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "port": 21683
   },
   "production": {
     "username": "avnadmin",
     "password": "AVNS_yxoxZXbJxL1bjoWdQY0",
     "database": "defaultdb",
     "host": "mysql-1c06620a-academy-e362.h.aivencloud.com",
-    "dialect": "mysql"
+    "dialect": "mysql",
+    "port": 21683
   }
 }

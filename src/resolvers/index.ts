@@ -12,8 +12,7 @@ const resolvers = {
         where[Op.or] = [
           ...searchTerms.map((term: string) => ({
             [Op.or]: [
-              { name: { [Op.like]: term } },
-              { description: { [Op.like]: term } }
+              { name: { [Op.like]: term } }
             ]
           }))
         ];
@@ -32,7 +31,7 @@ const resolvers = {
       const totalPages = Math.ceil(totalItems / pageSize);
 
       return {
-        products,
+        products: JSON.parse(JSON.stringify(products)),
         totalItems,
         totalPages,
         currentPage: page,
@@ -40,14 +39,14 @@ const resolvers = {
     },
 
     async getProductById(_: any, { id }: any) {
-      return await Product.findByPk(id, {
+      return JSON.parse(JSON.stringify(await Product.findByPk(id, {
         include: [
           {
             model: Category,
             as: 'category'
           }
         ]
-      });
+      })));
     },
 
     async getCart(_: any, { session_id }: any) {
@@ -61,11 +60,11 @@ const resolvers = {
         ]
       });
 
-      return cartItems;
+      return JSON.parse(JSON.stringify(cartItems));
     },
 
     async getCategory() {
-      return Category.findAll({});
+      return JSON.parse(JSON.stringify(await Category.findAll({})));
     },
   },
 
@@ -98,10 +97,18 @@ const resolvers = {
           }
         ]
       });
-      return cartItemWithProduct;
+      return JSON.parse(JSON.stringify(cartItemWithProduct));
     },
 
     async updateCartItem(_: any, { id, quantity }: any) {
+      await Cart.update(
+        { quantity },
+        {
+          where: {
+            id
+          },
+        });
+
       const cartItem = await Cart.findByPk(id, {
         include: [
           {
@@ -109,14 +116,13 @@ const resolvers = {
             as: 'product'
           }
         ]
-      });
+      })
+
       if (!cartItem) {
         throw new Error('Cart item not found');
       }
 
-      cartItem.quantity = quantity;
-      await cartItem.save();
-      return cartItem;
+      return JSON.parse(JSON.stringify(cartItem));
     },
 
     async removeFromCart(_: any, { id }: any) {
@@ -125,7 +131,7 @@ const resolvers = {
         throw new Error('Cart item not found');
       }
       cartItem.destroy();
-      return cartItem;
+      return JSON.parse(JSON.stringify(cartItem));
     },
 
     async clearCart(_: any, { sessionId }: { sessionId: string }) {

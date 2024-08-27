@@ -6,19 +6,21 @@ import sequelize from './utils/database';
 import typeDefs from './schemas';
 import resolvers from './resolvers';
 import cors from 'cors';
-import http from "http";
+import http from 'http';
 
 const app = express();
 app.use(cors({
   origin: "*"
 }));
-app.use(express.json());
+app.use(express.json())
 const httpServer = http.createServer(app);
-async function startServer() {
+const startApolloServer = async (app: any, httpServer: any) => {
   const server = new ApolloServer({
     typeDefs,
     resolvers,
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    cache: "bounded",
+    persistedQueries: false
   });
   await server.start();
   server.applyMiddleware({ app });
@@ -30,4 +32,5 @@ async function startServer() {
     console.log(`Server ready at http://localhost:4000${server.graphqlPath}`)
   );
 }
-startServer();
+startApolloServer(app, httpServer);
+export default httpServer;
